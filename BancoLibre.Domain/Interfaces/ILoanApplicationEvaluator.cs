@@ -4,5 +4,5 @@ namespace BancoLibre.UnitTests.Services;
 
 public interface ILoanApplicationEvaluator
 {
-    LoanApplicationEvaluationResult Evaluate(LoanApplication loanApplication);
+    Task<LoanApplicationEvaluationResult> EvaluateAsync(LoanApplication loanApplication);
 }
