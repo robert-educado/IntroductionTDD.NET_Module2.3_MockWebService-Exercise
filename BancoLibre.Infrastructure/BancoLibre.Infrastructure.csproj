@@ -7,13 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BancoLibre.Application\BancoLibre.Application.csproj" />
-    <ProjectReference Include="..\BancoLibre.Domain\BancoLibre.Domain.csproj" />
+    <Compile Remove="Data\**" />
+    <Compile Remove="Repositories\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Repositories\**" />
+    <None Remove="Data\**" />
+    <None Remove="Repositories\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\BancoLibre.Application\BancoLibre.Application.csproj" />
+    <ProjectReference Include="..\BancoLibre.Domain\BancoLibre.Domain.csproj" />
   </ItemGroup>
 
 </Project>

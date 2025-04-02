@@ -10,8 +10,4 @@
     <ProjectReference Include="..\BancoLibre.Domain\BancoLibre.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
-
 </Project>

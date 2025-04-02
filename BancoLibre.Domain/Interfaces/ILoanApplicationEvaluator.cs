@@ -1,6 +1,6 @@
 ﻿using BancoLibre.Domain.Entities;
 
-namespace BancoLibre.UnitTests.Services;
+namespace BancoLibre.Domain.Interfaces;
 
 public interface ILoanApplicationEvaluator
 {

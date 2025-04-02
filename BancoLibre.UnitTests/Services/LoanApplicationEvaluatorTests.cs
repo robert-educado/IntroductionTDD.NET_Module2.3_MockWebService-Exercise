@@ -1,27 +1,31 @@
-﻿using BancoLibre.Application.Services;
+﻿using BancoLibre.Application.Interfaces;
+using BancoLibre.Application.Services;
 using BancoLibre.Domain.Entities;
+using Moq;
 
 namespace BancoLibre.UnitTests.Services;
 
 public class LoanApplicationEvaluatorTests
 {
     [Fact]
-    public void Evaluate_RejectsLoanApplication_GivenLowCreditScore()
+    public async Task Evaluate_RejectsLoanApplication_GivenLowCreditScore()
     {
         // ------------------------------------------------------
         // Arrange
         // ------------------------------------------------------
 
-        var creditScoreProvider = new CreditScoreProvider("https://localhost:8000");
-        
-        var sut = new LoanApplicationEvaluator(creditScoreProvider);
+        var creditScoreProvider = new Mock<ICreditScoreProvider>();
 
-        var loanApplication = new LoanApplication("19900101-2010", 30000, OccupationType.Employed);
+        creditScoreProvider.Setup(m => m.GetCreditScoreAsync(It.IsAny<string>())).Returns(Task.FromResult(300));
+        
+        var sut = new LoanApplicationEvaluator(creditScoreProvider.Object);
+
+        var loanApplication = new LoanApplication("19900101-2020", 30000, OccupationType.Employed);
         
         // ------------------------------------------------------
         // Act
         // ------------------------------------------------------
-        var result = sut.EvaluateAsync(loanApplication);
+        var result = await sut.EvaluateAsync(loanApplication);
         
         // ------------------------------------------------------
         // Assert
@@ -31,22 +35,24 @@ public class LoanApplicationEvaluatorTests
     }
 
     [Fact]
-    public void Evaluate_ApprovedLoanApplication_GivenHighCreditScore()
+    public async Task Evaluate_ApprovedLoanApplication_GivenHighCreditScore()
     {
         // ------------------------------------------------------
         // Arrange
         // ------------------------------------------------------
 
-        var creditScoreProvider = new CreditScoreProvider("https://localhost:8000");
+        var creditScoreProvider = new Mock<ICreditScoreProvider>();
 
-        var sut = new LoanApplicationEvaluator(creditScoreProvider);
+        creditScoreProvider.Setup(m => m.GetCreditScoreAsync(It.IsAny<string>())).Returns(Task.FromResult(670));
+
+        var sut = new LoanApplicationEvaluator(creditScoreProvider.Object);
 
         var loanApplication = new LoanApplication("19900101-2010", 30000, OccupationType.Employed);
 
         // ------------------------------------------------------
         // Act
         // ------------------------------------------------------
-        var result = sut.Evaluate(loanApplication);
+        var result = await sut.EvaluateAsync(loanApplication);
 
         // ------------------------------------------------------
         // Assert

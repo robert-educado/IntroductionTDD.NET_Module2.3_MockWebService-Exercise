@@ -1,5 +1,6 @@
-﻿using BancoLibre.Domain.Entities;
-using BancoLibre.UnitTests.Services;
+﻿using BancoLibre.Application.Interfaces;
+using BancoLibre.Domain.Entities;
+using BancoLibre.Domain.Interfaces;
 
 namespace BancoLibre.Application.Services;
 

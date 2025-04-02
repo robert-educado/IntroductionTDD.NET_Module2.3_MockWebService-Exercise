@@ -1,4 +1,4 @@
-﻿namespace BancoLibre.Application.Services;
+﻿namespace BancoLibre.Application.Interfaces;
 
 public interface ICreditScoreProvider
 {
